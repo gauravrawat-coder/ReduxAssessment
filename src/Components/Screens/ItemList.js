@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
 const baseURL = 'https://image.tmdb.org/t/p/w200';
 const ItemList = ({
   id,

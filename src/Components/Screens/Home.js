@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   TouchableOpacity,
   Switch,
-  StatusBar,
 } from 'react-native';
 import Modal from 'react-native-modal';
 
