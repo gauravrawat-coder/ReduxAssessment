@@ -15,6 +15,7 @@ import thunk from 'redux-thunk';
 import {createStore, applyMiddleware, compose} from 'redux';
 import React from 'react';
 import Reactotron from './ReactotronConfig';
+import Navigation from './src/Components/Navigation';
 export const store = createStore(
   RootReducer,
   undefined,
@@ -23,7 +24,7 @@ export const store = createStore(
 
 const ReduxApp = () => (
   <Provider store={store}>
-    <Home />
+    <Navigation />
   </Provider>
 );
 
