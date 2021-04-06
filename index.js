@@ -5,7 +5,6 @@
 import 'react-native-gesture-handler';
 
 import {AppRegistry} from 'react-native';
-import Home from './src/Components/Home';
 import {name as appName} from './app.json';
 
 import RootReducer from './src/rootReducer';

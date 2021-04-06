@@ -1,15 +1,9 @@
 import * as React from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Platform} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/AntDesign';
-function HomeScreen() {
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
+import Home from './Screens/Home';
 
 function Other() {
   return (
@@ -45,15 +39,18 @@ export default function Navigation() {
           inactiveTintColor: '#687078',
           style: style.tabStyle,
         }}>
-        <Tab.Screen name="Home" component={HomeScreen} />
+        <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Search" component={Other} />
-        <Tab.Screen name="More" component={HomeScreen} />
+        <Tab.Screen name="More" component={Other} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
 
 const style = StyleSheet.create({
-  tabStyle: {backgroundColor: '#191919', height: 100},
+  tabStyle: {
+    backgroundColor: '#191919',
+    height: Platform.OS === 'ios' ? 100 : 50,
+  },
   notDone: {flex: 1, justifyContent: 'center', alignItems: 'center'},
 });

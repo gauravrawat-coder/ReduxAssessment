@@ -1,58 +1,107 @@
-import {GET_DATA, SET_DATA, UPDATE_DATA, DELETE_DATA} from './constant';
-
+import {
+  GET_DATA,
+  SORT_DATA,
+  MORE_DATA,
+  GET_GENRE,
+  GET_LANGUAGE,
+} from './constant';
+const API_KEY = '08e2dff9a1f38e8f8e4ca4e25b4f6514';
 export const getData = () => async (dispatch) => {
-  const data = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const data = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}`,
+  );
   const response = await data.json();
-
   dispatch({
     type: GET_DATA,
     payload: response,
   });
 };
 
-export const setData = (data) => async (dispatch) => {
-  const response = await fetch('https://jsonplaceholder.typicode.com/posts', {
-    method: 'POST',
-    body: JSON.stringify(data),
-  });
-  const JSONResponse = await response.json();
-
-  if (response.status === 201) {
-    dispatch({
-      type: SET_DATA,
-      payload: {...data, ...JSONResponse},
-    });
+export const sortData = (sortBy) => async (dispatch) => {
+  let sortValue = 'popularity.desc';
+  switch (sortBy) {
+    case 'Releases': {
+      sortValue = 'release_date.asc';
+      break;
+    }
+    case 'Old':
+      sortValue = 'release_date.desc';
+      break;
+    case 'Most popular':
+      sortValue = 'popularity.desc';
+      break;
+    case 'Less popular':
+      sortValue = 'popularity.asc';
+      break;
+    case 'Higher revenue':
+      sortValue = 'revenue.desc';
+      break;
+    case 'Lowest revenue':
+      sortValue = 'revenue.asc';
   }
-};
 
-export const deleteData = (id) => async (dispatch) => {
-  const data = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`, {
-    method: 'DELETE',
-  });
-  if (data.status === 200) {
-    dispatch({
-      type: DELETE_DATA,
-      payload: id,
-    });
-  }
-};
-
-export const updateData = (data) => async (dispatch) => {
-  const {id} = data;
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts/${id}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify(data),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    },
+  const data = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=${sortValue}`,
   );
-
-  const JSONResponse = await response.json();
+  const response = await data.json();
   dispatch({
-    type: UPDATE_DATA,
-    payload: JSONResponse,
+    type: SORT_DATA,
+    payload: response,
+  });
+};
+
+export const updateData = (pageNo, sortBy) => async (dispatch) => {
+  let sortValue = 'popularity.desc';
+  switch (sortBy) {
+    case 'Releases': {
+      sortValue = 'release_date.asc';
+      break;
+    }
+    case 'Old':
+      sortValue = 'release_date.desc';
+      break;
+    case 'Most popular':
+      sortValue = 'popularity.desc';
+      break;
+    case 'Less popular':
+      sortValue = 'popularity.asc';
+      break;
+    case 'Higher revenue':
+      sortValue = 'revenue.desc';
+      break;
+    case 'Lowest revenue':
+      sortValue = 'revenue.asc';
+  }
+
+  const data = await fetch(
+    `https://api.themoviedb.org/3/discover/movie?api_key=${API_KEY}&sort_by=${sortValue}&page=${pageNo}`,
+  );
+  const response = await data.json();
+  dispatch({
+    type: MORE_DATA,
+    payload: response,
+  });
+};
+
+export const getGenre = () => async (dispatch) => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=en-US
+    `,
+  );
+  const response = await data.json();
+  dispatch({
+    type: GET_GENRE,
+    payload: response,
+  });
+};
+
+export const getLanguage = () => async (dispatch) => {
+  const data = await fetch(
+    `https://api.themoviedb.org/3/configuration/languages?api_key=${API_KEY}`,
+  );
+  const response = await data.json();
+  dispatch({
+    type: GET_LANGUAGE,
+    payload: response,
   });
 };

@@ -1,4 +1,5 @@
 export const GET_DATA = 'GET_DATA';
-export const SET_DATA = 'SET_DATA';
-export const DELETE_DATA = 'DELETE_DATA';
-export const UPDATE_DATA = 'UPDATE_DATA';
+export const GET_GENRE = 'GET_GENRE';
+export const GET_LANGUAGE = 'GET_LANGUAGE';
+export const SORT_DATA = 'SORT_DATA';
+export const MORE_DATA = 'MORE_DATA';
